@@ -15,7 +15,9 @@
         <th>전화번호</th>
     </tr>
     <tr th:each="member:${memberList}">
-        <td th:text="${member.id}"></td>
+        <td>
+            <a th:href="@{|/member/${member.id}|}" th:text="${member.id}"></a>
+        </td>
         <td th:text="${member.memberEmail}"></td>
         <td th:text="${member.memberPassword}"></td>
         <td th:text="${member.memberName}"></td>

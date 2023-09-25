@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -35,14 +36,30 @@ public class MemberController {
         return "memberPages/memberLogin";
     }
     @PostMapping("/login")
-    public String login(@RequestParam("memberEmail") String memberEmail,@RequestParam("memberPassword") String memberPassword){
-        memberService.login(memberEmail,memberPassword);
-        return "memberPages/memberMain";
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session){
+        boolean loginResult = memberService.login(memberDTO);
+        if (loginResult) {
+            session.setAttribute("loginEmail",memberDTO.getMemberEmail());
+            return "memberPages/memberMain";
+        }else {
+            return "memberPages/memberLogin";
+        }
     }
     @GetMapping("/member/{id}")
     public String memberDetail(Model model, @PathVariable Long id) {
         MemberDTO memberDTO = memberService.findById(id);
         model.addAttribute("member",memberDTO);
+        return "memberPages/memberDetail";
+    }
+    @GetMapping("/member/update/{id}")
+    public String memberUpdate(@PathVariable Long id, Model model) {
+        MemberDTO memberDTO = memberService.findById(id);
+        model.addAttribute("member",memberDTO);
+        return "memberPages/memberUpdate";
+    }
+    @PostMapping("/member/update")
+    public String memberUpdate(@ModelAttribute MemberDTO memberDTO) {
+        memberService.update(memberDTO);
         return "memberPages/memberDetail";
     }
 }

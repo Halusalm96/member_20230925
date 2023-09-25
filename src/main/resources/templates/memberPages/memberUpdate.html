@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>update</title>
 </head>
 <body>
-
+<form action="/member/update" method="post">
+    <input type="hidden" name="id" th:value="${member.id}">
+    <input type="text" name="memberEmail" th:value="${member.memberEmail}">
+    <input type="text" name="memberPassword" th:value="${member.memberPassword}">
+    <input type="text" name="memberName" th:value="${member.memberName}">
+    <input type="date" name="memberBrith" th:value="${member.memberBirth}">
+    <input type="text" name="memberMobile" th:value="${member.memberMobile}">
+    <input type="submit" th:value="수정">
+</form>
 </body>
 </html>

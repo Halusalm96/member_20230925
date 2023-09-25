@@ -31,13 +31,19 @@
     <td th:text="${member.memberMobile}"></td>
   </tr>
     <td>
-      <button onclick="detail([[${member.id}]])">조회</button>
+      <button th:onclick="update([[${member.id}]])">수정</button>
     </td>
+  <td>
+    <button th:onclick="delete([[${member.id}]])">삭제</button>
+  </td>
 </table>
 </body>
 <script>
-  const detail = (id) => {
-    location.href = `/member/${id}`;
+  const update = (id) => {
+    location.href = `/member/update/${id}`;
+  }
+  const delete = (id) => {
+    location.href = `/member/delete/${id}`;
   }
 </script>
 </html>

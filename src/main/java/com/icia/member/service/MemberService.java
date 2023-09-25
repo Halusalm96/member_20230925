@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -21,7 +22,17 @@ public class MemberService {
         memberRepository.save(memberEntity);
     }
 
-    public void login(String memberEmail, String memberPassword) {
+    public boolean login(MemberDTO memberDTO) {
+//        1.
+//        MemberEntity memberEntity = memberRepository.findByMemberEmail(memberDTO.getMemberEmail()).orElseThrow(() -> new NoSuchElementException());
+//        2.
+    Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmailAndMemberPassword(memberDTO.getMemberEmail(), memberDTO.getMemberPassword());
+    if(optionalMemberEntity.isPresent()) {
+//        MemberEntity memberEntity = optionalMemberEntity.get();
+        return true;
+    }else {
+        return false;
+    }
     }
 
     public List<MemberDTO> findAll() {
@@ -41,5 +52,10 @@ public class MemberService {
         }else {
             return null;
         }
+    }
+
+    public void update(MemberDTO memberDTO) {
+        MemberEntity memberEntity = MemberEntity.toUpdateEntity(memberDTO);
+        memberRepository.save(memberEntity);
     }
 }

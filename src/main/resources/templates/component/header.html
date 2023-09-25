@@ -2,9 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>main</title>
+    <title>Title</title>
 </head>
 <body>
- <p th:text="${session.loginEmail}"></p>
+  <div th:fragment="header" id="head">
+    <h1>Member</h1>
+  </div>
 </body>
 </html>
