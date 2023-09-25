@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,5 +38,11 @@ public class MemberController {
     public String login(@RequestParam("memberEmail") String memberEmail,@RequestParam("memberPassword") String memberPassword){
         memberService.login(memberEmail,memberPassword);
         return "memberPages/memberMain";
+    }
+    @GetMapping("/member/{id}")
+    public String memberDetail(Model model, @PathVariable Long id) {
+        MemberDTO memberDTO = memberService.findById(id);
+        model.addAttribute("member",memberDTO);
+        return "memberPages/memberDetail";
     }
 }

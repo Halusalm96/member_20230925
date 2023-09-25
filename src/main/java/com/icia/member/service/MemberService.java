@@ -6,6 +6,7 @@ import com.icia.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,5 +31,15 @@ public class MemberService {
             memberDTOList.add(MemberDTO.toMemberList(memberEntity));
         }
         return memberDTOList;
+    }
+
+    public MemberDTO findById(Long id) {
+        Optional<MemberEntity> memberRepositoryById = memberRepository.findById(id);
+        if (memberRepositoryById.isPresent()) {
+            MemberEntity memberEntity = memberRepositoryById.get();
+            return MemberDTO.toMemberList(memberEntity);
+        }else {
+            return null;
+        }
     }
 }
