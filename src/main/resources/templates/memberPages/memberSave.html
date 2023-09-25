@@ -5,13 +5,41 @@
 </head>
 <body>
 <div th:replace="~{component/header :: header}"></div>
-<form method="post" action="/save">
-    <input type="email" name="memberEmail" placeholder="이메일">
-    <input type="text" name="memberPassword" placeholder="비밀번호">
-    <input type="text" name="memberName" placeholder="이름">
-    <input type="date" name="memberBirth" placeholder="생년월일">
-    <input type="text" name="memberMobile" placeholder="전화번호">
-    <input type="submit" value="가입">
-</form>
+<div th:replace="~{component/nav :: nav}"></div>
+
+<div class="container">
+    <form action="/member/save" method="post">
+        <input type="text" class="form-control" name="memberEmail" id="memberEmail" placeholder="이메일" onblur="checkEmail()"> <br>
+        <p id="checkEmail" style="display: none;"></p>
+        <input type="text" name="memberPassword" placeholder="비밀번호"> <br>
+        <input type="text" name="memberName" placeholder="이름"> <br>
+        <input type="date" name="memberBirth"> <br>
+        <input type="text" name="memberMobile" placeholder="전화번호"> <br>
+        <input type="submit" value="회원가입">
+    </form>
+</div>
+
+<div th:replace="~{component/footer :: footer}"></div>
 </body>
+<script>
+    const checkEmail = () => {
+        const memberEmail = document.getElementById("memberEmail").value;
+        const checkEmail = document.getElementById("checkEmail");
+        $.ajax({
+            type : "post",
+            url : "/member/checkEmail",
+            data : {
+                memberEmail : memberEmail
+            },
+            success : function () {
+                checkEmail.innerHTML = "사용 가능한 이메일입니다.";
+                checkEmail.style.display = "block";
+            },
+            error: function () {
+                checkEmail.innerHTML = "이미 사용 중인 이메일입니다.";
+                checkEmail.style.display = "block";
+            }
+        })
+    }
+</script>
 </html>

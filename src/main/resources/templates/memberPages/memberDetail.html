@@ -43,6 +43,10 @@
     location.href = `/member/update/${id}`;
   }
   const delete = (id) => {
+    $.ajax({
+      type : delete,
+      url : "/"
+    })
     location.href = `/member/delete/${id}`;
   }
 </script>

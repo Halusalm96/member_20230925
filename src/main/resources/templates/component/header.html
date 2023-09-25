@@ -5,8 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-  <div th:fragment="header" id="head">
-    <h1>Member</h1>
-  </div>
+<p th:text="|${session.loginEmail} 님 환영합니다!|"></p>
+<div th:fragment="header" id="header">
+    <h1>SpringBoot Member Project</h1>
+</div>
 </body>
 </html>
