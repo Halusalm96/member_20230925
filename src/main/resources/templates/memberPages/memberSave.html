@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{component/config :: config}"></th:block>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <div th:replace="~{component/header :: header}"></div>
@@ -9,8 +10,9 @@
 
 <div class="container">
     <form action="/member/save" method="post">
-        <input type="text" class="form-control" name="memberEmail" id="memberEmail" placeholder="이메일" onblur="checkEmail()"> <br>
-        <p id="checkEmail" style="display: none;"></p>
+        <input type="text" class="form-control" name="memberEmail" id="memberEmail" placeholder="이메일"
+               onblur="checkEmail()"> <br>
+<!--        <p id="checkEmail" style="display: none;"></p>-->
         <input type="text" name="memberPassword" placeholder="비밀번호"> <br>
         <input type="text" name="memberName" placeholder="이름"> <br>
         <input type="date" name="memberBirth"> <br>
@@ -21,30 +23,42 @@
 
 <div th:replace="~{component/footer :: footer}"></div>
 </body>
-<script>
+<script th:inline="javascript">
     const checkEmail = () => {
-        const memberEmail = document.getElementById("memberEmail").value;
-        const checkEmail = document.getElementById("checkEmail");
-        if(memberEmail.length > 0) {
-            $.ajax({
-                type : "post",
-                url : "/member/checkEmail",
-                data : {
-                    memberEmail : memberEmail
-                },
-                success : function () {
-                    checkEmail.innerHTML = "사용 가능한 이메일입니다.";
-                    checkEmail.style.display = "block";
-                },
-                error: function () {
-                    checkEmail.innerHTML = "이미 사용 중인 이메일입니다.";
-                    checkEmail.style.display = "block";
-                }
-            });
-        }else {
-            checkEmail.style.display = "none";
-        }
+        const memberEmail = document.querySelector('[name="memberEmail"]').value;
+        axios({
+            method: "post",
+            url: "/member/checkEmail",
+            data: {
+                memberEmail
+            }
+        }).then(res => {
+            console.log("res", res);
+        }).catch(err => {
+            console.log("err", err);
+        });
 
+        // const memberEmail = document.getElementById("memberEmail").value;
+        // const checkEmail = document.getElementById("checkEmail");
+        // if(memberEmail.length > 0) {
+        //     $.ajax({
+        //         type : "post",
+        //         url : "/member/checkEmail",
+        //         data : {
+        //             memberEmail : memberEmail
+        //         },
+        //         success : function () {
+        //             checkEmail.innerHTML = "사용 가능한 이메일입니다.";
+        //             checkEmail.style.display = "block";
+        //         },
+        //         error: function () {
+        //             checkEmail.innerHTML = "이미 사용 중인 이메일입니다.";
+        //             checkEmail.style.display = "block";
+        //         }
+        //     });
+        // }else {
+        //     checkEmail.style.display = "none";
+        // }
     }
 </script>
 </html>

@@ -58,14 +58,14 @@ public class MemberService {
         memberRepository.save(memberEntity);
     }
 
-    public boolean emailCheck(String memberEmail) {
-        Optional<MemberEntity> memberEntity = memberRepository.findByMemberEmail(memberEmail);
-        if (memberEntity.isPresent()) {
-            return false;
-        }else {
-            return true;
-        }
-    }
+//    public boolean emailCheck(String memberEmail) {
+//        Optional<MemberEntity> memberEntity = memberRepository.findByMemberEmail(memberEmail);
+//        if (memberEntity.isPresent()) {
+//            return false;
+//        }else {
+//            return true;
+//        }
+//    }
 
     public MemberDTO findByEmail(String memberEmail) {
         Optional<MemberEntity> memberRepositoryById = memberRepository.findByMemberEmail(memberEmail);
@@ -74,6 +74,24 @@ public class MemberService {
             return MemberDTO.toMemberList(memberEntity);
         }else {
             return null;
+        }
+    }
+
+    public boolean checkEmail(String memberEmail) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmail(memberEmail);
+        if(optionalMemberEntity.isEmpty()) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public boolean memberDetail(String memberEmail) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmail(memberEmail);
+        if(optionalMemberEntity.isEmpty()) {
+            return true;
+        }else {
+            return false;
         }
     }
 }
