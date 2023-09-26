@@ -50,9 +50,14 @@ public class MemberController {
     }
     @GetMapping("/member/{id}")
     public String memberDetail(Model model, @PathVariable Long id) {
-        MemberDTO memberDTO = memberService.findById(id);
-        model.addAttribute("member",memberDTO);
-        return "memberPages/memberDetail";
+        try{
+            MemberDTO memberDTO = memberService.findById(id);
+            model.addAttribute("member",memberDTO);
+            return "memberPages/memberDetail";
+        } catch (Exception e) {
+            return "memberPages/NotFound";
+        }
+
     }
     @GetMapping("/member/update/{id}")
     public String memberUpdate(@PathVariable Long id, Model model) {
