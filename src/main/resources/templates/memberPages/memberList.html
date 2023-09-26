@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>list</title>
+    <th:block th:replace="~{component/config :: config}"></th:block>
 </head>
 <body>
+<div th:replace="~{component/header :: header}"></div>
+<div th:replace="~{component/nav :: nav}"></div>
+<div>
+
 <table>
     <tr>
         <th>번호</th>
@@ -15,22 +18,30 @@
         <th>전화번호</th>
     </tr>
     <tr th:each="member:${memberList}">
+        <td th:text="${member.id}"></td>
         <td>
-            <a th:href="@{|/member/${member.id}|}" th:text="${member.id}"></a>
+            <a th:href="@{|/member/${member.id}|}" th:text="${member.memberEmail}"></a>
         </td>
-        <td th:text="${member.memberEmail}"></td>
         <td th:text="${member.memberPassword}"></td>
         <td th:text="${member.memberName}"></td>
         <td th:text="${member.memberBirth}"></td>
         <td th:text="${member.memberMobile}"></td>
         <td>
-            <button th:onclick="detail([[${member.id}]])">조회</button>
+            <button th:onclick="member_detail([[${member.id}]])">조회</button>
+        </td>
+        <td>
+            <button th:onclick="member_detail([[${member.id}]])">조회</button>
         </td>
 </table>
+</div>
+<div th:replace="~{component/footer :: footer}"></div>
 </body>
 <script>
-    const detail = (id) => {
+    const member_detail = (id) => {
         location.href = `/member/${id}`;
+    }
+    const member_delete = (id) => {
+        location.href = `/member/delete/${id}`;
     }
 </script>
 </html>

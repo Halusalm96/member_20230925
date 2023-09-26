@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>update</title>
+    <th:block th:replace="~{component/config :: config}"></th:block>
 </head>
 <body>
+<div th:replace="~{component/header :: header}"></div>
+<div th:replace="~{component/nav :: nav}"></div>
 <form action="/member/update" method="post">
     <input type="hidden" name="id" th:value="${member.id}">
     <input type="text" name="memberEmail" th:value="${member.memberEmail}">
@@ -14,5 +15,6 @@
     <input type="text" name="memberMobile" th:value="${member.memberMobile}">
     <input type="submit" th:value="수정">
 </form>
+<div th:replace="~{component/footer :: footer}"></div>
 </body>
 </html>
