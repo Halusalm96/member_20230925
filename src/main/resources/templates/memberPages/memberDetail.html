@@ -32,16 +32,8 @@
             <th>전화번호</th>
             <td th:text="${member.memberMobile}"></td>
         </tr>
-        <td>
-            <button th:onclick="update([[${member.id}]])">수정</button>
-        </td>
     </table>
 </div>
 <div th:replace="~{component/footer :: footer}"></div>
 </body>
-<script>
-    const update = (id) => {
-        location.href = `/member/update/${id}`;
-    }
-</script>
 </html>
