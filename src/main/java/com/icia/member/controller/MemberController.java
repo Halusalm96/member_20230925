@@ -62,7 +62,6 @@ public class MemberController {
         } catch (Exception e) {
             return "memberPages/NotFound";
         }
-
     }
 
     @GetMapping("/member/update")
@@ -90,6 +89,7 @@ public class MemberController {
             return new ResponseEntity<>("사용불가능", HttpStatus.CONFLICT);
         }
     }
+
     @PostMapping("/member/detail")
     public ResponseEntity memberDetail(@RequestBody MemberDTO memberDTO, Model model) {
         boolean result = memberService.memberDetail(memberDTO.getMemberEmail());
@@ -117,6 +117,7 @@ public class MemberController {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping("/update")
     public String update(Model model, HttpSession session) {
         String memberEmail = (String) session.getAttribute("loginEmail");

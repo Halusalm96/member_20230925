@@ -25,40 +25,40 @@
 </body>
 <script th:inline="javascript">
     const checkEmail = () => {
-        const memberEmail = document.querySelector('[name="memberEmail"]').value;
-        axios({
-            method: "post",
-            url: "/member/checkEmail",
-            data: {
-                memberEmail
-            }
-        }).then(res => {
-            console.log("res", res);
-        }).catch(err => {
-            console.log("err", err);
-        });
+        // const memberEmail = document.querySelector('[name="memberEmail"]').value;
+        // axios({
+        //     method: "post",
+        //     url: "/member/checkEmail",
+        //     data: {
+        //         memberEmail
+        //     }
+        // }).then(res => {
+        //     console.log("res", res);
+        // }).catch(err => {
+        //     console.log("err", err);
+        // });
 
-        // const memberEmail = document.getElementById("memberEmail").value;
-        // const checkEmail = document.getElementById("checkEmail");
-        // if(memberEmail.length > 0) {
-        //     $.ajax({
-        //         type : "post",
-        //         url : "/member/checkEmail",
-        //         data : {
-        //             memberEmail : memberEmail
-        //         },
-        //         success : function () {
-        //             checkEmail.innerHTML = "사용 가능한 이메일입니다.";
-        //             checkEmail.style.display = "block";
-        //         },
-        //         error: function () {
-        //             checkEmail.innerHTML = "이미 사용 중인 이메일입니다.";
-        //             checkEmail.style.display = "block";
-        //         }
-        //     });
-        // }else {
-        //     checkEmail.style.display = "none";
-        // }
+        const memberEmail = document.getElementById("memberEmail").value;
+        const checkEmail = document.getElementById("checkEmail");
+        if(memberEmail.length > 0) {
+            $.ajax({
+                type : "post",
+                url : "/member/checkEmail",
+                data : {
+                    memberEmail : memberEmail
+                },
+                success : function () {
+                    checkEmail.innerHTML = "사용 가능한 이메일입니다.";
+                    checkEmail.style.display = "block";
+                },
+                error: function () {
+                    checkEmail.innerHTML = "이미 사용 중인 이메일입니다.";
+                    checkEmail.style.display = "block";
+                }
+            });
+        }else {
+            checkEmail.style.display = "none";
+        }
     }
 </script>
 </html>
